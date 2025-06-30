@@ -27,7 +27,7 @@
                 <version>3.2.0</version>
             </plugin>
 
-            <!-- Mule Maven Plugin (CloudHub 2.0 Deployment with Connected Apps) -->
+            <!-- Mule Maven Plugin for CloudHub 2.0 Deployment with Connected Apps (Old Syntax for 4.5.1) -->
             <plugin>
                 <groupId>org.mule.tools.maven</groupId>
                 <artifactId>mule-maven-plugin</artifactId>
@@ -47,10 +47,9 @@
                         <deploymentSettings>
                             <generateDefaultPublicUrl>true</generateDefaultPublicUrl>
                         </deploymentSettings>
-                        <connectedApp>
-                            <clientId>${client.id}</clientId>
-                            <clientSecret>${client.secret}</clientSecret>
-                        </connectedApp>
+                        <connectedAppClientId>${client.id}</connectedAppClientId>
+                        <connectedAppClientSecret>${client.secret}</connectedAppClientSecret>
+                        <connectedAppGrantType>client_credentials</connectedAppGrantType>
                     </cloudhub2Deployment>
                 </configuration>
             </plugin>
