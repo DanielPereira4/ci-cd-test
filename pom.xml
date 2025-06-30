@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0" 
-         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
 
     <modelVersion>4.0.0</modelVersion>
@@ -27,7 +27,7 @@
                 <version>3.2.0</version>
             </plugin>
 
-            <!-- Mule Maven Plugin (CloudHub 2.0 Deployment) -->
+            <!-- Mule Maven Plugin: CloudHub 2.0 Deployment -->
             <plugin>
                 <groupId>org.mule.tools.maven</groupId>
                 <artifactId>mule-maven-plugin</artifactId>
@@ -47,18 +47,18 @@
                         <deploymentSettings>
                             <generateDefaultPublicUrl>true</generateDefaultPublicUrl>
                         </deploymentSettings>
-                        <!-- Connected Apps Credentials -->
+                        <!-- Connected Apps OAuth Credentials -->
                         <clientId>${client.id}</clientId>
                         <clientSecret>${client.secret}</clientSecret>
                     </cloudhub2Deployment>
                 </configuration>
             </plugin>
 
-            <!-- Exchange Maven Plugin (For Publishing to Exchange) -->
+            <!-- Exchange Maven Plugin: Publishing to Exchange -->
             <plugin>
                 <groupId>org.mule.tools.maven</groupId>
                 <artifactId>exchange-mule-maven-plugin</artifactId>
-                <version>1.2.2</version> <!-- Upgraded from 0.0.23 -->
+                <version>0.0.23</version> <!-- Stay on this public version -->
                 <configuration>
                     <clientId>${client.id}</clientId>
                     <clientSecret>${client.secret}</clientSecret>
