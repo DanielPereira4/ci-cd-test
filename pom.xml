@@ -27,7 +27,7 @@
                 <version>3.2.0</version>
             </plugin>
 
-            <!-- Mule Maven Plugin: CloudHub 2.0 Deployment -->
+            <!-- Mule Maven Plugin: CloudHub 2.0 Deployment with Connected Apps -->
             <plugin>
                 <groupId>org.mule.tools.maven</groupId>
                 <artifactId>mule-maven-plugin</artifactId>
@@ -47,18 +47,19 @@
                         <deploymentSettings>
                             <generateDefaultPublicUrl>true</generateDefaultPublicUrl>
                         </deploymentSettings>
-                        <!-- Connected Apps OAuth Credentials -->
-                        <clientId>${client.id}</clientId>
-                        <clientSecret>${client.secret}</clientSecret>
+                        <connectedApp>
+                            <clientId>${client.id}</clientId>
+                            <clientSecret>${client.secret}</clientSecret>
+                        </connectedApp>
                     </cloudhub2Deployment>
                 </configuration>
             </plugin>
 
-            <!-- Exchange Maven Plugin: Publishing to Exchange -->
+            <!-- Exchange Maven Plugin: Publishing to Exchange with Connected Apps -->
             <plugin>
                 <groupId>org.mule.tools.maven</groupId>
                 <artifactId>exchange-mule-maven-plugin</artifactId>
-                <version>0.0.23</version> <!-- Stay on this public version -->
+                <version>0.0.23</version>
                 <configuration>
                     <clientId>${client.id}</clientId>
                     <clientSecret>${client.secret}</clientSecret>
