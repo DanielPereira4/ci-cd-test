@@ -15,7 +15,7 @@
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
-        <mule.maven.plugin.version>4.5.0</mule.maven.plugin.version>
+        <mule.maven.plugin.version>4.4.0</mule.maven.plugin.version>  <!-- Stay on 4.4.0 or upgrade later -->
     </properties>
 
     <build>
@@ -27,7 +27,7 @@
                 <version>3.2.0</version>
             </plugin>
 
-            <!-- Mule Maven Plugin: CloudHub 2.0 Deployment with Connected Apps -->
+            <!-- Mule Maven Plugin: CloudHub 2.0 Deployment (No credentials here) -->
             <plugin>
                 <groupId>org.mule.tools.maven</groupId>
                 <artifactId>mule-maven-plugin</artifactId>
@@ -47,10 +47,6 @@
                         <deploymentSettings>
                             <generateDefaultPublicUrl>true</generateDefaultPublicUrl>
                         </deploymentSettings>
-                        <connectedApp>
-                            <clientId>${client.id}</clientId>
-                            <clientSecret>${client.secret}</clientSecret>
-                        </connectedApp>
                     </cloudhub2Deployment>
                 </configuration>
             </plugin>
@@ -60,10 +56,6 @@
                 <groupId>org.mule.tools.maven</groupId>
                 <artifactId>exchange-mule-maven-plugin</artifactId>
                 <version>0.0.23</version>
-                <configuration>
-                    <clientId>${client.id}</clientId>
-                    <clientSecret>${client.secret}</clientSecret>
-                </configuration>
             </plugin>
 
         </plugins>
