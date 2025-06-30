@@ -5,12 +5,4 @@
     <pluginGroup>org.mule.tools</pluginGroup>
   </pluginGroups>
 
-  <servers>
-    <server>
-      <id>Repository</id>
-      <username>~~~Client~~~</username>
-      <password>${client.id}~?~${client.secret}</password>
-    </server>
-  </servers>
-
 </settings>
