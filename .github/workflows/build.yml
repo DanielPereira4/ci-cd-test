@@ -1,18 +1,21 @@
-
-name: Publish to Exchange & Deploy to CH2.0
+name: Publish to Exchange & Deploy to CloudHub 2.0
 
 on:
   push:
     branches: [ main ]
-    
-jobs:         
+
+jobs:
   build:
     runs-on: ubuntu-latest
+    env:
+      ANYPOINT_CLIENT_ID: ${{ secrets.ANYPOINT_CLIENT_ID }}
+      ANYPOINT_CLIENT_SECRET: ${{ secrets.ANYPOINT_CLIENT_SECRET }}
+
     steps:
-      - name: Checkout this repo
+      - name: Checkout Repository
         uses: actions/checkout@v4
 
-      - name: Cache dependencies
+      - name: Cache Maven dependencies
         uses: actions/cache@v4
         with:
           path: ~/.m2/repository
@@ -22,16 +25,17 @@ jobs:
       - name: Set up JDK 1.8
         uses: actions/setup-java@v4
         with:
-          distribution: "zulu"
+          distribution: 'zulu'
           java-version: 8
-      
-      - name: Publish to Exchange
+
+      - name: Build and install artifact
         run: |
-          mvn deploy --settings .maven/settings.xml -DskipMunitTests \
-          -Dclient.id="${{ secrets.ANYPOINT_CLIENT_ID}}" \
-          -Dclient.secret="${{ secrets.ANYPOINT_CLIENT_SECRET }}"
-      - name: Deploy to CloudHub 2.0
+          mvn clean install --settings .maven/settings.xml -DskipMunitTests \
+          -Dclient.id="${ANYPOINT_CLIENT_ID}" \
+          -Dclient.secret="${ANYPOINT_CLIENT_SECRET}"
+
+      - name: Publish to Exchange and Deploy to CloudHub 2.0
         run: |
           mvn deploy --settings .maven/settings.xml -DskipMunitTests -DmuleDeploy \
-          -Dclient.id="${{ secrets.ANYPOINT_CLIENT_ID}}" \
-          -Dclient.secret="${{ secrets.ANYPOINT_CLIENT_SECRET }}" 
+          -Dclient.id="${ANYPOINT_CLIENT_ID}" \
+          -Dclient.secret="${ANYPOINT_CLIENT_SECRET}"
