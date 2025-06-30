@@ -1,0 +1,61 @@
+name: CI/CD - MuleSoft CloudHub EU1 (Build and Deploy)
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout Code
+      uses: actions/checkout@v4
+
+    - name: Set up Java and Maven
+      uses: actions/setup-java@v3
+      with:
+        distribution: 'temurin'
+        java-version: '11'
+        cache: maven
+
+    - name: Build Mule Application (Create .zip)
+      run: mvn clean package -Pcloudhub-deploy
+
+    - name: Debug - List Target Folder
+      run: ls -la target/
+
+    - name: Upload Mule App Artifact
+      uses: actions/upload-artifact@v4
+      with:
+        name: mule-app
+        path: target/*.zip
+
+  deploy:
+    runs-on: ubuntu-latest
+    needs: build
+
+    steps:
+    - name: Download Mule App Artifact
+      uses: actions/download-artifact@v4
+      with:
+        name: mule-app
+        path: target/
+
+    - name: Set up Java and Maven
+      uses: actions/setup-java@v3
+      with:
+        distribution: 'temurin'
+        java-version: '11'
+        cache: maven
+
+    - name: Debug - List Target Folder After Download
+      run: ls -la target/
+
+    - name: Deploy to CloudHub EU1
+      env:
+        ANYPOINT_CLIENT_ID: ${{ secrets.ANYPOINT_CLIENT_ID }}
+        ANYPOINT_CLIENT_SECRET: ${{ secrets.ANYPOINT_CLIENT_SECRET }}
+        ANYPOINT_ENV: ${{ secrets.ANYPOINT_ENV }}
+      run: mvn mule:deploy -Pcloudhub-deploy
