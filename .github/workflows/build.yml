@@ -7,9 +7,6 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
-    env:
-      ANYPOINT_CLIENT_ID: ${{ secrets.ANYPOINT_CLIENT_ID }}
-      ANYPOINT_CLIENT_SECRET: ${{ secrets.ANYPOINT_CLIENT_SECRET }}
 
     steps:
       - name: Checkout Repository
@@ -31,11 +28,11 @@ jobs:
       - name: Build and install artifact
         run: |
           mvn clean install --settings .maven/settings.xml -DskipMunitTests \
-          -Dclient.id="${ANYPOINT_CLIENT_ID}" \
-          -Dclient.secret="${ANYPOINT_CLIENT_SECRET}"
+          -Dclient.id="d18d4000b2034808811524491a9657f9" \
+          -Dclient.secret="fAB2caD1C22646d1B709e8365713B047"
 
       - name: Publish to Exchange and Deploy to CloudHub 2.0
         run: |
           mvn deploy --settings .maven/settings.xml -DskipMunitTests -DmuleDeploy \
-          -Dclient.id="${ANYPOINT_CLIENT_ID}" \
-          -Dclient.secret="${ANYPOINT_CLIENT_SECRET}"
+          -Dclient.id="d18d4000b2034808811524491a9657f9" \
+          -Dclient.secret="fAB2caD1C22646d1B709e8365713B047"
